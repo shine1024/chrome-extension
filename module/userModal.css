@@ -1,0 +1,143 @@
+.uniflow-modal-wrapper {
+   position: fixed;
+   top: 0; 
+   left: 0; 
+   width: 100%; 
+   height: 100%;
+   background-color: rgba(0,0,0,0.5);
+   display: flex; 
+   justify-content: center; 
+   align-items: center;
+   z-index: 9999;
+}
+
+.uniflow-modal {
+   background: #fff;
+   width: 900px;
+   height: 450px;
+   padding: 30px;
+   border-radius: 12px;
+   display: flex;
+   flex-direction: column;
+   box-sizing: border-box;
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.uniflow-modal h3 {
+   margin: 0 0 20px 0;
+   font-size: 20px;
+   font-weight: 600;
+   color: #333;
+}
+
+.search-bar {
+   margin-bottom: 15px;
+}
+
+.table-container {
+   display: flex;
+   gap: 20px;
+   flex: 1;
+   overflow: hidden;
+}
+
+.fav-users, .all-users {
+   flex: 1;
+   overflow-y: auto;
+   overflow-x: hidden;
+   max-height: 350px;
+}
+
+.fav-users h4, .all-users h4 {
+   margin: 0 0 12px 0;
+   font-size: 16px;
+   font-weight: 500;
+   color: #333;
+}
+
+.table-container table {
+   width: 100%;
+   border-collapse: collapse;
+   border: 1px solid #e0e0e0;
+   border-radius: 4px;
+   overflow: hidden;
+   table-layout: fixed;
+}
+
+.table-container th:first-child, .table-container td:first-child {
+   width: 25px;
+   text-align: center;
+}
+
+.table-container th, .table-container td {
+   border: 1px solid #e0e0e0;
+   padding: 12px 10px;
+   text-align: left;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+}
+
+.table-container th {
+   background-color: #f8f9fa;
+   color: #333;
+   font-weight: 500;
+   font-size: 14px;
+}
+
+.table-container td {
+   font-size: 14px;
+   color: #333;
+}
+
+.table-container td.align-center {
+  text-align: center;
+}
+
+.table-container tbody tr:hover {
+   background-color: #f8f9fa;
+}
+
+.table-container a {
+   color: #007bff;
+   text-decoration: none;
+   cursor: pointer;
+}
+
+.table-container a:hover {
+   text-decoration: underline;
+}
+
+.fav-users::-webkit-scrollbar, .all-users::-webkit-scrollbar {
+   width: 8px;
+}
+
+.fav-users::-webkit-scrollbar-track, .all-users::-webkit-scrollbar-track {
+   background: #f1f1f1;
+}
+
+.fav-users::-webkit-scrollbar-thumb, .all-users::-webkit-scrollbar-thumb {
+   background: #c1c1c1;
+   border-radius: 4px;
+}
+
+.fav-users::-webkit-scrollbar-thumb:hover, .all-users::-webkit-scrollbar-thumb:hover {
+   background: #a1a1a1;
+}
+
+#close-uniflow-modal {
+   align-self: flex-end;
+   background: #fff;
+   color: #333;
+   border: 1px solid #ddd;
+   padding: 8px 20px;
+   border-radius: 6px;
+   font-size: 14px;
+   cursor: pointer;
+   margin-top: 15px;
+}
+
+#close-uniflow-modal:hover {
+   background: #f8f9fa;
+   border-color: #999;
+}
