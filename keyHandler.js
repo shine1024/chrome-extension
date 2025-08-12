@@ -7,9 +7,12 @@
   // 키 이벤트
   document.addEventListener("keydown", (e) => {
     if (e.key === "F2") {
-      document.getElementById("id").value = "uniflow";
-      document.getElementById("password").value = "unipost01@!";
-      document.querySelector(".btn-login").click();
+      const isLogged = !!document.querySelector(".session");
+      if (isLogged) {
+        window.location = "/logout";
+      } else {
+        autoLogin();
+      }
     }
 
     if (e.key === "F3") {
@@ -44,4 +47,10 @@
       }
     }
   });
+
+  function autoLogin() {
+    document.getElementById("id").value = "uniflow";
+    document.getElementById("password").value = "unipost01@!";
+    document.querySelector(".btn-login").click();
+  }
 })();
