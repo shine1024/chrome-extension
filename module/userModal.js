@@ -6,6 +6,57 @@ function saveFavorites() {
   localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
+// 사용자 로그인
+function changeLoginUserByApi(usId) {
+  const clientKey = "861905132B80441D906AAF31C47BB968";
+  const authVal = usId;
+
+  // 1) secretKey 발급 → 2) userToken 발급
+  fetch("/auth/getSecretKey", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      clientKey: clientKey,
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("SecretKey request failed: " + response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const secretKey = data.response.secretKey;
+      console.log("발급받은 SecretKey:", secretKey);
+
+      // secretKey 로 두 번째 API 호출
+      return fetch("/auth/getInterfaceUserToken", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          secretKey: secretKey,
+        },
+        body: JSON.stringify({
+          usAuthVal: authVal,
+        }),
+      });
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("UserToken request failed: " + response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("발급받은 User Token:", data);
+      const token = data.response.token;
+      window.location = `/unicloud/api/call-service-sloLogin?token=${token}`;
+    })
+    .catch((error) => {
+      console.error("API 호출 오류:", error);
+    });
+}
+
 // 내부 함수: 사용자 로그인
 function changeLoginUser(usId) {
   fetch("/unicloud/admin/usermanage/changeLoginUser", {
@@ -33,6 +84,7 @@ async function getCompanyUserList() {
       fRegDateStart: "",
       fRegDateEnd: "",
       sUserStatus: "10",
+      onlyUsUseYn: "Y",
     }),
   });
   return res.json();
@@ -75,7 +127,7 @@ function renderTables(users) {
     a.onclick = () => {
       const id = a.getAttribute("data-id");
       if (favorites.includes(id)) {
-        changeLoginUser(id);
+        changeLoginUserByApi(id);
       } else {
         favorites.push(id);
         saveFavorites();
@@ -88,7 +140,7 @@ function renderTables(users) {
   tbodyFav.querySelectorAll(".change-login").forEach((a) => {
     a.onclick = () => {
       const id = a.getAttribute("data-id");
-      changeLoginUser(id);
+      changeLoginUserByApi(id);
     };
   });
 
